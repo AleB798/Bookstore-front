@@ -1,0 +1,32 @@
+<div class="container">
+    @if(authService.user?.role == 'admin') {
+        <button mat-raised-button routerLink ="/add-book">Ajouter un produit</button>
+    }
+    <div class ='grid row row-cols-3'>
+        @for (item of books; track $index) {
+            <div class="mat-card mb-4">
+                <mat-card class="example-card" appearance="outlined">
+                    <mat-card-header>
+                    <mat-card-title>{{item.title}}</mat-card-title>
+                    <mat-card-subtitle>{{item.author}} / {{item.publisher}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="https://fastly.picsum.photos/id/24/4855/1803.jpg?hmac=ICVhP1pUXDLXaTkgwDJinSUS59UWalMxf4SOIWb9Ui4" alt="photo d'un livre ouvert">
+                    <mat-card-content>
+                    <p>
+                        {{item.description}}
+                    </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                    @if(authService.user?.role == 'user') {
+                        <button mat-button (click)="reserveBook(item)">Réserver</button>
+                    }
+                    @if(authService.user?.role == 'admin') {
+                        <button mat-button routerLink="/update-book/{{item.id}}">Modifier</button>
+                        <button mat-button (click)="onClickSuppressionLivre(item)">Supprimer</button>
+                    }
+                    </mat-card-actions>
+                </mat-card>
+            </div>  
+        } 
+    </div>
+</div>

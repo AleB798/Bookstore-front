@@ -1,0 +1,37 @@
+<p>edit-produit works!</p>
+
+<form (ngSubmit)="onAjoutProduit()" class="formulaire container" [formGroup]="formulaire">
+    <mat-form-field>
+        <mat-label>Titre</mat-label>
+        <input matInput placeholder="Ex. Le Comte de Monte-Cristo" formControlName="title">
+        @if(formulaire.get('title')?.hasError('required')) {
+            <mat-error>Le titre est requis</mat-error>
+        } @else {
+            <mat-error>Le titre ne peut avoir plus de 70 caractères</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Auteur(s)</mat-label>
+        <input matInput placeholder="Ex. Alexandre Dumas" formControlName="author">
+        @if(formulaire.get('author')?.hasError('required')) {
+            <mat-error>Le ou les auteurs sont requis</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Edition</mat-label>
+        <input matInput placeholder="Ex. Flammarion" formControlName="publisher">
+        @if(formulaire.get('publisher')?.hasError('required')) {
+            <mat-error>La maison d'édition est requise'</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="L'histoire d'une trahison et d'une soif de vengeance..." formControlName="description"></textarea>
+        @if(formulaire.get('description')?.hasError('required')) {
+            <mat-error>Un résumé est requis'</mat-error>
+        }
+        <mat-error>La description ne peut pas avoir plus de 255 caractères</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button [disabled]="!formulaire.valid" type="submit">{{ produitEdite ? "Modifier le produit" : "Ajouter un produit"}}</button>
+</form>
